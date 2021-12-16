@@ -7,9 +7,10 @@ authors = [
     "Jigsaw <j1g5aw@foxmail.com>",
 ]
 license = "AGPL-3.0"
+packages = [{ include = "OlivaDiceJoy" }]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7.3"
 nonebot2 = "^2.0.0-alpha.16"
 nonebot-adapter-cqhttp = "^2.0.0-alpha.16"
 
