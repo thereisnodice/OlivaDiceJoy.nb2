@@ -50,7 +50,7 @@ def unity_reply(plugin_event, Proc):
     tmp_at_str_sub = None
     if "sub_self_id" in plugin_event.data.extend:
         if plugin_event.data.extend["sub_self_id"] != None:
-            tmp_at_str_sub = str(MessageSegment.at(plugin_event.data.extend['sub_self_id']))    tmp_command_str_1 = '.'
+            tmp_at_str_sub = str(MessageSegment.at(plugin_event.data.extend['sub_self_id']))
     tmp_command_str_1 = '.'
     tmp_command_str_2 = '。'
     tmp_command_str_3 = '/'
