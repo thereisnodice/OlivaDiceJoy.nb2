@@ -1,0 +1,14 @@
+# OlivaDice
+data
+
+# test
+bot.py
+.env
+go-cqhttp
+
+# VSCode
+.vscode
+
+# python
+.venv
+__pycache__
