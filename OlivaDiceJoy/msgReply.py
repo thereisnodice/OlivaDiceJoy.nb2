@@ -14,12 +14,16 @@ _  / / /_  /  __  / __ | / /__  /| |_  / / /__  / _  /    __  __/
 @Desc      :   None
 '''
 
-import OlivOS
-import OlivaDiceJoy
-import OlivaDiceCore
-
 import hashlib
 import time
+
+import OlivaDiceCore.msgCustom
+import OlivaDiceCore.msgReply
+import OlivaDiceCore.userConfig
+from nonebot.adapters.cqhttp import MessageSegment
+
+import OlivaDiceJoy.msgCustomManager
+
 
 def unity_init(plugin_event, Proc):
     data_init(plugin_event, Proc)
@@ -42,11 +46,11 @@ def unity_reply(plugin_event, Proc):
     skipSpaceStart = OlivaDiceCore.msgReply.skipSpaceStart
     skipToRight = OlivaDiceCore.msgReply.skipToRight
 
-    tmp_at_str = OlivOS.messageAPI.PARA.at(plugin_event.base_info['self_id']).CQ()
+    tmp_at_str = str(MessageSegment.at(plugin_event.base_info['self_id']))
     tmp_at_str_sub = None
-    if 'sub_self_id' in plugin_event.data.extend:
-        if plugin_event.data.extend['sub_self_id'] != None:
-            tmp_at_str_sub = OlivOS.messageAPI.PARA.at(plugin_event.data.extend['sub_self_id']).CQ()
+    if "sub_self_id" in plugin_event.data.extend:
+        if plugin_event.data.extend["sub_self_id"] != None:
+            tmp_at_str_sub = str(MessageSegment.at(plugin_event.data.extend['sub_self_id']))    tmp_command_str_1 = '.'
     tmp_command_str_1 = '.'
     tmp_command_str_2 = '。'
     tmp_command_str_3 = '/'
@@ -74,6 +78,8 @@ def unity_reply(plugin_event, Proc):
             tmp_reast_str = getMatchWordStartRight(tmp_reast_str, tmp_at_str_sub)
             tmp_reast_str = skipSpaceStart(tmp_reast_str)
             flag_force_reply = True
+    if getattr(plugin_event.data, 'to_me', False):
+        flag_force_reply = True
     if isMatchWordStart(tmp_reast_str, tmp_command_str_1):
         tmp_reast_str = getMatchWordStartRight(tmp_reast_str, tmp_command_str_1)
         flag_is_command = True
