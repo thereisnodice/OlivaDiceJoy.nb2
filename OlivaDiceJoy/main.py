@@ -16,12 +16,14 @@ _  / / /_  /  __  / __ | / /__  /| |_  / / /__  / _  /    __  __/
 
 from typing import Optional, Tuple
 
+import OlivaDiceCore.crossHook
 from nonebot import get_driver
 from nonebot.adapters.cqhttp import Bot
 from nonebot.adapters.cqhttp.event import Event, GroupMessageEvent, PrivateMessageEvent
 from nonebot.plugin import on
 from OlivaDiceCore.middleware import PluginEvent, Proc
 
+import OlivaDiceJoy.data
 import OlivaDiceJoy.msgReply
 
 
@@ -38,6 +40,9 @@ async def pre_process(
 async def init(bot: Bot):
     plugin_event, proc = await pre_process()
     OlivaDiceJoy.msgReply.unity_init(plugin_event, proc)
+    OlivaDiceCore.crossHook.dictHookList["model"].append(
+        ["OlivaDiceJoy", OlivaDiceJoy.data.OlivaDiceJoy_ver]
+    )
 
 
 @on("message").handle()
