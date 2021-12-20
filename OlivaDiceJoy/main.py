@@ -20,11 +20,14 @@ import OlivaDiceCore.crossHook
 from nonebot import get_driver
 from nonebot.adapters.cqhttp import Bot
 from nonebot.adapters.cqhttp.event import Event, GroupMessageEvent, PrivateMessageEvent
-from nonebot.plugin import on
+from nonebot.plugin import on_message
 from OlivaDiceCore.middleware import PluginEvent, Proc
 
 import OlivaDiceJoy.data
 import OlivaDiceJoy.msgReply
+
+driver = get_driver()
+message_matcher = on_message()
 
 
 async def pre_process(
@@ -36,7 +39,7 @@ async def pre_process(
     return plugin_event, proc
 
 
-@get_driver().on_bot_connect
+@driver.on_bot_connect
 async def init(bot: Bot):
     plugin_event, proc = await pre_process()
     OlivaDiceJoy.msgReply.unity_init(plugin_event, proc)
@@ -45,13 +48,13 @@ async def init(bot: Bot):
     )
 
 
-@on("message").handle()
+@message_matcher.handle()
 async def private_message(bot: Bot, event: PrivateMessageEvent):
     plugin_event, proc = await pre_process(bot, event)
     OlivaDiceJoy.msgReply.unity_reply(plugin_event, proc)
 
 
-@on("message").handle()
+@message_matcher.handle()
 async def group_message(bot: Bot, event: GroupMessageEvent):
     plugin_event, proc = await pre_process(bot, event)
     OlivaDiceJoy.msgReply.unity_reply(plugin_event, proc)
